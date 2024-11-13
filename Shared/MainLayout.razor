@@ -2,26 +2,32 @@
 @inject NavigationManager NavigationManager
 @inject SWEPP.Services.CustomerService CustomerService
 
-<div class="layout-wrapper" style="display: flex; flex-direction: column; height: 100vh;">
-    <div class="header" style="background-color: #f8f9fa; box-shadow: 0 4px 2px -2px gray; padding: 10px;">
+<div class="layout-wrapper">
+    <div class="header">
         <div class="company-name">
-            <h1 style="margin: 0; font-size: 24px; color: #343a40;">Golden Crust Pizza</h1>
+            <h1>Golden Crust Pizza</h1>
         </div>
-        <div class="welcome-message">
+
+        <!-- Auth buttons container for Login and Sign Up - positioned in the top right -->
+        <div class="auth-buttons">
             @if (CustomerService.LoggedInCustomer != null)
             {
-                <span style="font-size: 16px; font-weight: bold;">Welcome, @CustomerService.LoggedInCustomer.Name!</span>
-                <button @onclick="Logout" style="background-color: #f44336; color: white; border: none; padding: 5px 10px; cursor: pointer;">Log Out</button>
+                <span>Welcome, @CustomerService.LoggedInCustomer.Name!</span>
+                <button @onclick="Logout">Log Out</button>
+            }
+            else
+            {
+                <button class="login-button" @onclick="NavigateToLogin">Login</button>
+                <button class="signup-button" @onclick="NavigateToSignup">Sign Up</button>
             }
         </div>
     </div>
 
-    <!-- Include the NavMenu directly under the header -->
-    <NavMenu /> <!-- Banner Navigation -->
+    <NavMenu />
 
-    <div class="main-content" style="flex-grow: 1; padding: 20px;">
+    <div class="main-content">
         <main>
-            @Body <!-- This is where the content of each page will be rendered -->
+            @Body
         </main>
     </div>
 </div>
@@ -32,13 +38,24 @@
         CustomerService.Logout();
         NavigationManager.NavigateTo("/");
     }
+
+    void NavigateToLogin()
+    {
+        NavigationManager.NavigateTo("/login");
+    }
+
+    void NavigateToSignup()
+    {
+        // Updated the route to match "/sign-up"
+        NavigationManager.NavigateTo("/sign-up");
+    }
 }
 
 <style>
     .layout-wrapper {
         display: flex;
-        flex-direction: column; /* Stack header and main content vertically */
-        height: 100vh; /* Full height of the viewport */
+        flex-direction: column;
+        height: 100vh;
     }
 
     .header {
@@ -53,35 +70,12 @@
     .company-name h1 {
         margin: 0;
         font-size: 24px;
-        color: #343a40; /* Dark text color */
+        color: #343a40;
     }
-
-    .welcome-message {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-        .welcome-message span {
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        .welcome-message button {
-            background-color: #f44336;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-
-            .welcome-message button:hover {
-                background-color: #d32f2f;
-            }
 
     .main-content {
-        flex-grow: 1; /* Fill the remaining space */
+        flex-grow: 1;
         padding: 20px;
-        text-align: center;
+        text-align: left; /* Ensures other content isn't centered */
     }
 </style>
