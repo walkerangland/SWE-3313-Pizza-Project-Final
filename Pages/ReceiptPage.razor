@@ -1,0 +1,32 @@
+﻿@page "/receipt"
+@inject SWEPP.Services.OrderService OrderService
+@using SWEPP.Models
+
+<h3>Receipt</h3>
+
+@if (OrderService.CurrentReceipt != null)
+{
+    <div>
+        <p><strong>Customer:</strong> @OrderService.CurrentReceipt.CustomerName</p>
+        <p><strong>Date:</strong> @OrderService.CurrentReceipt.Date</p>
+        <ul>
+            @foreach (var item in OrderService.CurrentReceipt.Items)
+            {
+                <li>@item.Name - @item.Price.ToString("C")</li>
+            }
+        </ul>
+        <p><strong>Total:</strong> @OrderService.CurrentReceipt.TotalPrice.ToString("C")</p>
+        <p><strong>Payment Method:</strong> @OrderService.CurrentReceipt.PaymentMethod</p>
+    </div>
+}
+else
+{
+    <p>No receipt available.</p>
+}
+
+@code {
+    protected override void OnInitialized()
+    {
+        OrderService.ClearOrder();
+    }
+}

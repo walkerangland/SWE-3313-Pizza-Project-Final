@@ -8,7 +8,6 @@
             <h1>Golden Crust Pizza</h1>
         </div>
 
-        <!-- Auth buttons container for Login and Sign Up - positioned in the top right -->
         <div class="auth-buttons">
             @if (CustomerService.LoggedInCustomer != null)
             {
@@ -46,7 +45,6 @@
 
     void NavigateToSignup()
     {
-        // Updated the route to match "/sign-up"
         NavigationManager.NavigateTo("/sign-up");
     }
 }
@@ -76,6 +74,6 @@
     .main-content {
         flex-grow: 1;
         padding: 20px;
-        text-align: left; /* Ensures other content isn't centered */
+        text-align: left;
     }
 </style>

@@ -1,0 +1,24 @@
+﻿@page "/kitchen-slip"
+@inject SWEPP.Services.OrderService OrderService
+
+<h3>Kitchen Order Slip</h3>
+
+@if (!string.IsNullOrEmpty(kitchenSlip))
+{
+    <pre>@kitchenSlip</pre>
+}
+else
+{
+    <p>No kitchen slip available.</p>
+}
+
+<button class="btn btn-primary" @onclick="GenerateSlip">Generate Slip</button>
+
+@code {
+    private string? kitchenSlip;
+
+    private void GenerateSlip()
+    {
+        kitchenSlip = OrderService.GenerateKitchenSlip();
+    }
+}

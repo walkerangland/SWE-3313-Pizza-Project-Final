@@ -7,5 +7,14 @@
     "MajorIntersection": "Calhoun",
     "PaymentType": "Visa",
     "Password": "1234"
+  },
+  {
+    "Name": "Walker Andrew Angland",
+    "PhoneNumber": "7069794810",
+    "Address": "136 Old Calhoun Road SW",
+    "Subdivision": "UClub",
+    "MajorIntersection": "78",
+    "PaymentType": "Visa",
+    "Password": "Meow"
   }
 ]

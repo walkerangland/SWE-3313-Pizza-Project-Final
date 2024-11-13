@@ -1,0 +1,24 @@
+﻿@page "/sales-summary"
+@inject SWEPP.Services.OrderService OrderService
+
+<h3>Daily Sales Summary</h3>
+
+@if (!string.IsNullOrEmpty(dailySummary))
+{
+    <pre>@dailySummary</pre>
+}
+else
+{
+    <p>No sales summary available.</p>
+}
+
+<button class="btn btn-primary" @onclick="GenerateSummary">Generate Summary</button>
+
+@code {
+    private string? dailySummary;
+
+    private void GenerateSummary()
+    {
+        dailySummary = OrderService.GenerateDailySalesSummary();
+    }
+}

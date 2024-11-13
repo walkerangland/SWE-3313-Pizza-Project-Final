@@ -1,29 +1,67 @@
 ﻿@page "/cart"
-@inject NavigationManager NavigationManager
 @inject SWEPP.Services.OrderService OrderService
+@inject SWEPP.Services.CustomerService CustomerService
+@inject NavigationManager NavigationManager
+@using SWEPP.Models
 
 <h3>Your Cart</h3>
 
-@if (OrderService.CurrentOrder.Pizzas.Count == 0)
+@if (OrderService.CurrentOrder.Any())
 {
-    <p>Your cart is empty.</p>
+    <ul>
+        @foreach (var item in OrderService.CurrentOrder.ToList())
+        {
+            <li>
+                @item.Name - @item.Price.ToString("C")
+                <button class="btn btn-danger btn-sm" @onclick="() => RemoveItem(item)">Remove</button>
+            </li>
+        }
+    </ul>
+    <h4>Total: @OrderService.CurrentOrder.Sum(item => item.Price).ToString("C")</h4>
+
+    @if (CustomerService.LoggedInCustomer == null)
+    {
+        <div>
+            <label for="payment-method">Choose a payment method:</label>
+            <select id="payment-method" @bind="selectedPaymentMethod">
+                <option value="Visa">Visa</option>
+                <option value="MasterCard">MasterCard</option>
+                <option value="Cash">Cash</option>
+            </select>
+        </div>
+    }
+
+    <button class="btn btn-success" @onclick="Checkout">Checkout</button>
+    <button class="btn btn-danger" @onclick="ClearCart">Clear Cart</button>
 }
 else
 {
-    <ul>
-        @foreach (var pizza in OrderService.CurrentOrder.Pizzas)
-        {
-            <li>@pizza.Name - @pizza.Price.ToString("C")</li>
-        }
-    </ul>
-    <h4>Total: @OrderService.CurrentOrder.TotalPrice.ToString("C")</h4>
-    <button @onclick="Checkout">Checkout</button>
+    <p>Your cart is empty.</p>
 }
 
 @code {
-    private void Checkout()
+    private string selectedPaymentMethod = "Visa";
+
+    private void RemoveItem(MenuItem item)
+    {
+        OrderService.RemoveFromOrder(item);
+        StateHasChanged();
+    }
+
+    private void ClearCart()
     {
         OrderService.ClearOrder();
-        NavigationManager.NavigateTo("/");
+        StateHasChanged();
+    }
+
+    private void Checkout()
+    {
+        string customerName = CustomerService.LoggedInCustomer?.Name ?? "Guest";
+        string paymentMethod = CustomerService.LoggedInCustomer == null ? selectedPaymentMethod : "Visa";
+
+        // Generate receipt and navigate
+        var receipt = OrderService.GenerateReceipt(customerName, paymentMethod);
+        OrderService.SetCurrentReceipt(receipt);
+        NavigationManager.NavigateTo("/receipt");
     }
 }
