@@ -12,14 +12,19 @@
 @foreach (var item in menuItems)
 {
     <div class="menu-item">
-        <h4>@item.Name - @item.Price.ToString("C")</h4>
-        @if (item is Pizza pizza)
-        {
-            <p>Size: @pizza.Size</p>
-            <p>Crust: @pizza.Crust</p>
-            <p>Toppings: @string.Join(", ", pizza.Toppings)</p>
-        }
-        <button class="btn btn-primary" @onclick="() => AddToOrder(item)">Add to Cart</button>
+        <div style="display: flex; align-items: center;">
+            <img src="images/@item.ImagePath" alt="@item.Name" style="width: 100px; height: 100px; margin-right: 10px;" />
+            <div>
+                <h4>@item.Name - @item.Price.ToString("C")</h4>
+                @if (item is Pizza pizza)
+                {
+                    <p>Size: @pizza.Size</p>
+                    <p>Crust: @pizza.Crust</p>
+                    <p>Toppings: @string.Join(", ", pizza.Toppings)</p>
+                }
+                <button class="btn btn-primary" @onclick="() => AddToOrder(item)">Add to Cart</button>
+            </div>
+        </div>
         <hr />
     </div>
 }
@@ -28,24 +33,24 @@
     private List<MenuItem> menuItems = new List<MenuItem>
     {
         // Pizzas
-        new Pizza { Name = "Pepperoni Pizza", Size = "Large", Crust = "Thin", Price = 12.99M, Toppings = new List<string> { "Pepperoni", "Cheese" } },
-        new Pizza { Name = "Veggie Pizza", Size = "Medium", Crust = "Thick", Price = 10.99M, Toppings = new List<string> { "Bell Peppers", "Onions", "Mushrooms" } },
-        new Pizza { Name = "BBQ Chicken Pizza", Size = "Large", Crust = "Hand-Tossed", Price = 14.99M, Toppings = new List<string> { "BBQ Chicken", "Red Onions", "Cilantro" } },
-        new Pizza { Name = "Margherita Pizza", Size = "Medium", Crust = "Thin", Price = 11.99M, Toppings = new List<string> { "Fresh Mozzarella", "Basil", "Tomato Sauce" } },
-        new Pizza { Name = "Meat Lover’s Pizza", Size = "Extra Large", Crust = "Stuffed", Price = 15.99M, Toppings = new List<string> { "Sausage", "Pepperoni", "Bacon", "Ham" } },
+        new Pizza { Name = "Pepperoni Pizza", Size = "Large", Crust = "Thin", Price = 12.99M, Toppings = new List<string> { "Pepperoni", "Cheese" }, ImagePath = "peppizza.jpg" },
+        new Pizza { Name = "Veggie Pizza", Size = "Medium", Crust = "Thick", Price = 10.99M, Toppings = new List<string> { "Bell Peppers", "Onions", "Mushrooms" }, ImagePath = "vegpizza.jpg" },
+        new Pizza { Name = "BBQ Chicken Pizza", Size = "Large", Crust = "Hand-Tossed", Price = 14.99M, Toppings = new List<string> { "BBQ Chicken", "Red Onions", "Cilantro" }, ImagePath = "bbqpizza.jpg" },
+        new Pizza { Name = "Margherita Pizza", Size = "Medium", Crust = "Thin", Price = 11.99M, Toppings = new List<string> { "Fresh Mozzarella", "Basil", "Tomato Sauce" }, ImagePath = "margpizza.jpg" },
+        new Pizza { Name = "Meat Lover’s Pizza", Size = "Extra Large", Crust = "Stuffed", Price = 15.99M, Toppings = new List<string> { "Sausage", "Pepperoni", "Bacon", "Ham" }, ImagePath = "meatpizza.jpg" },
 
         // Sides
-        new MenuItem { Name = "Garlic Bread", Price = 4.99M },
-        new MenuItem { Name = "Cheesy Breadsticks", Price = 5.99M },
-        new MenuItem { Name = "Caesar Salad", Price = 6.99M },
+        new MenuItem { Name = "Garlic Bread", Price = 4.99M, ImagePath = "gbmenu.jpg" },
+        new MenuItem { Name = "Cheesy Breadsticks", Price = 5.99M, ImagePath = "cheesybreadsticks.jpg" },
+        new MenuItem { Name = "Caesar Salad", Price = 6.99M, ImagePath = "salad.jpg" },
 
         // Drinks
-        new MenuItem { Name = "Coke (Can)", Price = 1.49M },
-        new MenuItem { Name = "Sprite (Can)", Price = 1.49M },
-        new MenuItem { Name = "Diet Coke (Can)", Price = 1.49M },
-        new MenuItem { Name = "Coke (2L)", Price = 2.99M },
-        new MenuItem { Name = "Sprite (2L)", Price = 2.99M },
-        new MenuItem { Name = "Diet Coke (2L)", Price = 2.99M }
+        new MenuItem { Name = "Coke (Can)", Price = 1.49M, ImagePath = "coke.jpg" },
+        new MenuItem { Name = "Sprite (Can)", Price = 1.49M, ImagePath = "sprite.jpg" },
+        new MenuItem { Name = "Diet Coke (Can)", Price = 1.49M, ImagePath = "dietcoke.jpg" },
+        new MenuItem { Name = "Coke (2L)", Price = 2.99M, ImagePath = "coke2l.jpg" },
+        new MenuItem { Name = "Sprite (2L)", Price = 2.99M, ImagePath = "sprite2l.jpg" },
+        new MenuItem { Name = "Diet Coke (2L)", Price = 2.99M, ImagePath = "diet coke 2l.png" }
     };
 
     private string? feedbackMessage;

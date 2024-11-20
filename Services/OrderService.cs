@@ -9,6 +9,12 @@ namespace SWEPP.Services
         public List<MenuItem> CurrentOrder { get; private set; } = new List<MenuItem>();
         public Receipt? CurrentReceipt { get; private set; }
         public List<Receipt> DailyReceipts { get; private set; } = new List<Receipt>();
+        private readonly CustomerService customerService;
+
+        public OrderService(CustomerService customerService)
+        {
+            this.customerService = customerService;
+        }
 
         public void AddToOrder(MenuItem item)
         {
@@ -38,7 +44,18 @@ namespace SWEPP.Services
             };
 
             DailyReceipts.Add(receipt);
+
+            if (customerService.LoggedInCustomer != null)
+            {
+                customerService.SaveOrderToHistory(receipt);
+            }
+
             return receipt;
+        }
+
+        public void SetCurrentReceipt(Receipt receipt)
+        {
+            CurrentReceipt = receipt;
         }
 
         public string GenerateDailySalesSummary()
@@ -67,6 +84,23 @@ namespace SWEPP.Services
             }
 
             return summary;
+        }
+
+        public string GenerateKitchenSlip()
+        {
+            if (!CurrentOrder.Any())
+            {
+                return "No items in the order.";
+            }
+
+            var slip = "Kitchen Order Slip:\n\n";
+            foreach (var item in CurrentOrder)
+            {
+                slip += $"- {item.Name}\n";
+            }
+
+            slip += $"\nTotal Items: {CurrentOrder.Count}";
+            return slip;
         }
     }
 }

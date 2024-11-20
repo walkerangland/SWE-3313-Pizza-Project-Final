@@ -1,24 +1,72 @@
 ﻿@page "/"
 @inject NavigationManager NavigationManager
-@inject SWEPP.Services.CustomerService CustomerService
 
-@if (CustomerService.LoggedInCustomer == null)
-{
-   
-}
-else
-{
+<div style="display: flex; justify-content: space-between; align-items: flex-start; padding: 20px;">
+    <!-- Left Image Column -->
+    <div style="display: flex; flex-direction: column; gap: 10px; width: 12%;">
+        <img src="images/peppizza.jpg" alt="Pepperoni Pizza" style="width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 10px;" />
+        <img src="images/vegpizza.jpg" alt="Veggie Pizza" style="width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 10px;" />
+        <img src="images/cheesybreadsticks.jpg" alt="Cheesy Breadsticks" style="width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 10px;" />
+    </div>
 
-}
+    <!-- Main Content -->
+    <div style="width: 70%; text-align: center;">
+        <h1>Welcome to Golden Crust Pizza!</h1>
+        <p><em>"Bringing joy one slice at a time!"</em></p>
+
+        <div style="border: 2px solid #ddd; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+            <h2>Today's Specials</h2>
+            <ul style="list-style-type: none; padding: 0;">
+                <li style="margin-bottom: 10px;">Get a Free 2L Coke with Any Large Pizza!</li>
+                <li style="margin-bottom: 10px;">Garlic Bread Combo - $8.99</li>
+                <li style="margin-bottom: 10px;">Buy One Medium Pizza, Get the Second Half Off!</li>
+            </ul>
+        </div>
+
+        <div style="border: 2px solid #ddd; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+            <h3>What Our Customers Say</h3>
+            <blockquote>
+                <p>"The best pizza I've ever had! Golden Crust Pizza never disappoints."</p>
+                <footer>- Sarah L.</footer>
+                <p>"Great variety and fantastic customer service. Highly recommend!"</p>
+                <footer>- Mike P.</footer>
+            </blockquote>
+        </div>
+
+        <!-- Moved: Our Promise Section -->
+        <div style="border: 2px solid #ddd; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+            <h3>Popular Items</h3>
+            <ul style="list-style-type: none; padding: 0;">
+                <li style="margin-bottom: 10px;">Pepperoni Pizza</li>
+                <li style="margin-bottom: 10px;">Garlic Bread Combo</li>
+                <li style="margin-bottom: 10px;">Cheesy Breadsticks</li>
+            </ul>
+        </div>
+
+        <div style="border: 2px solid #ddd; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+            <h3>Our Promise</h3>
+            <p>At Golden Crust Pizza, we promise to use only the freshest ingredients, the best recipes, and the warmest customer service to make your experience unforgettable.</p>
+        </div>
+
+        <div style="border: 2px solid #ddd; padding: 15px; border-radius: 10px;">
+            <h3>Visit Us</h3>
+            <p>123 Pizza Lane, Food City, FC 45678</p>
+            <p><strong>Open Daily:</strong> 10 AM - 10 PM</p>
+            <p><strong>Phone:</strong> (555) 123-4567</p>
+        </div>
+    </div>
+
+    <!-- Right Image Column -->
+    <div style="display: flex; flex-direction: column; gap: 10px; width: 12%;">
+        <img src="images/bbqpizza.jpg" alt="BBQ Chicken Pizza" style="width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 10px;" />
+        <img src="images/margpizza.jpg" alt="Margherita Pizza" style="width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 10px;" />
+        <img src="images/gbmenu.jpg" alt="Garlic Bread" style="width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 10px;" />
+    </div>
+</div>
 
 @code {
-    private void NavigateToLogin()
+    private void NavigateToMenu()
     {
-        NavigationManager.NavigateTo("/login");
-    }
-
-    private void NavigateToSignUp()
-    {
-        NavigationManager.NavigateTo("/sign-up");
+        NavigationManager.NavigateTo("/menu");
     }
 }

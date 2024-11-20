@@ -1,0 +1,33 @@
+﻿@page "/order-history"
+@inject SWEPP.Services.CustomerService CustomerService
+
+<h3>Order History</h3>
+
+@if (CustomerService.LoggedInCustomer == null)
+{
+    <p>You need to log in to view your order history.</p>
+}
+else if (CustomerService.LoggedInCustomer.OrderHistory.Any())
+{
+    <ul>
+        @foreach (var receipt in CustomerService.LoggedInCustomer.OrderHistory)
+        {
+            <li>
+                <p><strong>Date:</strong> @receipt.Date</p>
+                <ul>
+                    @foreach (var item in receipt.Items)
+                    {
+                        <li>@item.Name - @item.Price.ToString("C")</li>
+                    }
+                </ul>
+                <p><strong>Total:</strong> @receipt.TotalPrice.ToString("C")</p>
+                <p><strong>Payment Method:</strong> @receipt.PaymentMethod</p>
+                <hr />
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No order history available.</p>
+}

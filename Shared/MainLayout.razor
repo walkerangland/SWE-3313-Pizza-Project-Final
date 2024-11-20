@@ -12,12 +12,12 @@
             @if (CustomerService.LoggedInCustomer != null)
             {
                 <span>Welcome, @CustomerService.LoggedInCustomer.Name!</span>
-                <button @onclick="Logout">Log Out</button>
+                <button @onclick="Logout" class="btn btn-danger">Log Out</button>
             }
             else
             {
-                <button class="login-button" @onclick="NavigateToLogin">Login</button>
-                <button class="signup-button" @onclick="NavigateToSignup">Sign Up</button>
+                <button @onclick="NavigateToLogin" class="btn btn-light">Login</button>
+                <button @onclick="NavigateToSignup" class="btn btn-light">Sign Up</button>
             }
         </div>
     </div>
@@ -50,30 +50,22 @@
 }
 
 <style>
-    .layout-wrapper {
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-    }
-
     .header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 10px;
-        background-color: #f8f9fa;
-        box-shadow: 0 4px 2px -2px gray;
+        padding: 10px 20px;
+        background-color: #e63946; /* Vibrant pizza place red */
+        color: white;
     }
 
-    .company-name h1 {
-        margin: 0;
-        font-size: 24px;
-        color: #343a40;
+    .auth-buttons {
+        display: flex;
+        gap: 10px;
     }
 
     .main-content {
         flex-grow: 1;
         padding: 20px;
-        text-align: left;
     }
 </style>

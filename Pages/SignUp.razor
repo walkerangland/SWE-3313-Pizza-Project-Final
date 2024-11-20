@@ -8,36 +8,38 @@
     <DataAnnotationsValidator />
     <ValidationSummary />
 
-    <div>
-        <label>Name:</label>
-        <InputText @bind-Value="newCustomer.Name" />
-    </div>
-    <div>
-        <label>Phone Number:</label>
-        <InputText @bind-Value="newCustomer.PhoneNumber" />
-    </div>
-    <div>
-        <label>Password:</label>
-        <InputText @bind-Value="newCustomer.Password" type="password" />
-    </div>
-    <div>
-        <label>Address:</label>
-        <InputText @bind-Value="newCustomer.Address" />
-    </div>
-    <div>
-        <label>Subdivision:</label>
-        <InputText @bind-Value="newCustomer.Subdivision" />
-    </div>
-    <div>
-        <label>Major Intersection:</label>
-        <InputText @bind-Value="newCustomer.MajorIntersection" />
-    </div>
-    <div>
-        <label>Payment Type:</label>
-        <InputText @bind-Value="newCustomer.PaymentType" />
-    </div>
+    <div class="form-container">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <InputText id="name" @bind-Value="newCustomer.Name" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone Number:</label>
+            <InputText id="phone" @bind-Value="newCustomer.PhoneNumber" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <InputText id="password" @bind-Value="newCustomer.Password" type="password" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="address">Address:</label>
+            <InputText id="address" @bind-Value="newCustomer.Address" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="subdivision">Subdivision:</label>
+            <InputText id="subdivision" @bind-Value="newCustomer.Subdivision" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="intersection">Major Intersection:</label>
+            <InputText id="intersection" @bind-Value="newCustomer.MajorIntersection" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="payment">Payment Type:</label>
+            <InputText id="payment" @bind-Value="newCustomer.PaymentType" class="form-control" />
+        </div>
 
-    <button type="submit">Sign Up</button>
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+    </div>
 </EditForm>
 
 @if (signUpSuccess)

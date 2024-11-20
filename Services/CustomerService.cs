@@ -10,11 +10,10 @@ namespace SWEPP.Services
     {
         private readonly string filePath = "customers.json";
         private List<Customer> customers;
-        public Customer LoggedInCustomer { get; private set; } 
+        public Customer LoggedInCustomer { get; private set; }
 
         public CustomerService()
         {
-
             if (File.Exists(filePath))
             {
                 var json = File.ReadAllText(filePath);
@@ -50,6 +49,17 @@ namespace SWEPP.Services
         public void Logout()
         {
             LoggedInCustomer = null;
+        }
+
+        public void SaveOrderToHistory(Receipt receipt)
+        {
+            if (LoggedInCustomer != null)
+            {
+                LoggedInCustomer.OrderHistory.Add(receipt);
+                Console.WriteLine($"Order saved for: {LoggedInCustomer.Name}"); // Debugging
+                Console.WriteLine($"Order count: {LoggedInCustomer.OrderHistory.Count}"); // Debugging
+                SaveCustomersToFile();
+            }
         }
 
         private void SaveCustomersToFile()
