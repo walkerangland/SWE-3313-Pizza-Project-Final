@@ -1,0 +1,69 @@
+﻿@page "/customize-pizza"
+@inject SWEPP.Services.OrderService OrderService
+@inject NavigationManager NavigationManager
+@using Microsoft.AspNetCore.Components
+@using SWEPP.Models
+
+<h3>Customize Your Pizza</h3>
+
+<EditForm Model="customPizza" OnValidSubmit="AddToOrder">
+    <div class="form-group">
+        <label for="size">Select Size:</label>
+        <select id="size" @bind="customPizza.Size" class="form-control">
+            <option value="Small">Small</option>
+            <option value="Medium">Medium</option>
+            <option value="Large">Large</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="crust">Select Crust:</label>
+        <select id="crust" @bind="customPizza.Crust" class="form-control">
+            <option value="Thin">Thin</option>
+            <option value="Regular">Regular</option>
+            <option value="Stuffed">Stuffed</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="toppings">Select Toppings:</label>
+        @foreach (var topping in availableToppings)
+        {
+            <div>
+                <input type="checkbox" @bind="customPizza.Toppings" value="@topping" />
+                <label>@topping</label>
+            </div>
+        }
+    </div>
+    <button type="submit" class="btn btn-primary">Add to Order</button>
+</EditForm>
+
+@code {
+    private Pizza customPizza = new Pizza();
+    private List<string> availableToppings = new List<string>
+    {
+        "Pepperoni", "Mushrooms", "Onions", "Sausage", "Bacon", "Extra Cheese", "Black Olives", "Green Peppers"
+    };
+
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string? Name { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (!string.IsNullOrEmpty(Name))
+        {
+            customPizza.Name = Name;
+        }
+        else
+        {
+            customPizza.Name = "Custom Pizza";
+        }
+    }
+
+    private void AddToOrder()
+    {
+
+        OrderService.AddToOrder(customPizza);
+        customPizza = new Pizza();
+        NavigationManager.NavigateTo("/cart");
+    }
+}

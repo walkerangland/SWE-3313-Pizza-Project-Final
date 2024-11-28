@@ -6,15 +6,16 @@ namespace SWEPP.Services
 {
     public class OrderService
     {
-        public List<MenuItem> CurrentOrder { get; private set; } = new List<MenuItem>();
-        public Receipt? CurrentReceipt { get; private set; }
-        public List<Receipt> DailyReceipts { get; private set; } = new List<Receipt>();
         private readonly CustomerService customerService;
 
         public OrderService(CustomerService customerService)
         {
             this.customerService = customerService;
         }
+
+        public List<MenuItem> CurrentOrder { get; private set; } = new List<MenuItem>();
+        public Receipt? CurrentReceipt { get; private set; }
+        public List<Receipt> DailyReceipts { get; private set; } = new List<Receipt>();
 
         public void AddToOrder(MenuItem item)
         {
@@ -44,6 +45,7 @@ namespace SWEPP.Services
             };
 
             DailyReceipts.Add(receipt);
+            CurrentReceipt = receipt;
 
             if (customerService.LoggedInCustomer != null)
             {
@@ -53,9 +55,9 @@ namespace SWEPP.Services
             return receipt;
         }
 
-        public void SetCurrentReceipt(Receipt receipt)
+        public Receipt? GetCurrentReceipt()
         {
-            CurrentReceipt = receipt;
+            return CurrentReceipt;
         }
 
         public string GenerateDailySalesSummary()

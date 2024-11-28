@@ -12,7 +12,17 @@
         @foreach (var item in OrderService.CurrentOrder.ToList())
         {
             <li>
-                @item.Name - @item.Price.ToString("C")
+                @if (item is Pizza pizza)
+                {
+                    <div>
+                        @pizza.Size pizza, @pizza.Crust crust, with @string.Join(", ", pizza.Toppings)
+                    </div>
+                }
+                else
+                {
+                    <div>@item.Name</div>
+                }
+                - @item.Price.ToString("C")
                 <button class="btn btn-danger btn-sm" @onclick="() => RemoveItem(item)">Remove</button>
             </li>
         }
@@ -59,9 +69,8 @@ else
         string customerName = CustomerService.LoggedInCustomer?.Name ?? "Guest";
         string paymentMethod = CustomerService.LoggedInCustomer == null ? selectedPaymentMethod : "Visa";
 
-        // Generate receipt and navigate
+        // Generate and set the receipt
         var receipt = OrderService.GenerateReceipt(customerName, paymentMethod);
-        OrderService.SetCurrentReceipt(receipt);
         NavigationManager.NavigateTo("/receipt");
     }
 }

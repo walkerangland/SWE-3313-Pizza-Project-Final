@@ -1,24 +1,35 @@
 ﻿@page "/kitchen-slip"
-@inject SWEPP.Services.OrderService OrderService
+@using SWEPP.Models
+@inject SWEPP.Services.KitchenSlipService KitchenSlipService
 
-<h3>Kitchen Order Slip</h3>
+<h3>Active Kitchen Slips</h3>
 
-@if (!string.IsNullOrEmpty(kitchenSlip))
+@if (activeOrders.Count == 0)
 {
-    <pre>@kitchenSlip</pre>
+    <p>No active orders.</p>
 }
 else
 {
-    <p>No kitchen slip available.</p>
+    @foreach (var order in activeOrders)
+    {
+        <div class="kitchen-slip">
+            <pre>@order.GenerateKitchenSlip()</pre>
+            <button class="btn btn-success" @onclick="() => MarkAsComplete(order)">Mark as Complete</button>
+        </div>
+    }
 }
 
-<button class="btn btn-primary" @onclick="GenerateSlip">Generate Slip</button>
-
 @code {
-    private string? kitchenSlip;
+    private List<Order> activeOrders = new();
 
-    private void GenerateSlip()
+    protected override void OnInitialized()
     {
-        kitchenSlip = OrderService.GenerateKitchenSlip();
+        activeOrders = KitchenSlipService.GetActiveOrders();
+    }
+
+    private void MarkAsComplete(Order order)
+    {
+        KitchenSlipService.MarkOrderAsComplete(order);
+        activeOrders = KitchenSlipService.GetActiveOrders();
     }
 }

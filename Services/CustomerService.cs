@@ -10,7 +10,7 @@ namespace SWEPP.Services
     {
         private readonly string filePath = "customers.json";
         private List<Customer> customers;
-        public Customer LoggedInCustomer { get; private set; }
+        public Customer? LoggedInCustomer { get; private set; }
 
         public CustomerService()
         {
@@ -36,10 +36,15 @@ namespace SWEPP.Services
             return customers;
         }
 
-        public Customer ValidateCustomer(string phoneNumber, string password)
+        public Customer? ValidateCustomer(string phoneNumber, string password)
         {
             return customers.FirstOrDefault(c => c.PhoneNumber == phoneNumber && c.Password == password);
         }
+        public Customer? GetCustomerByPhoneNumber(string phoneNumber)
+        {
+            return customers.FirstOrDefault(c => c.PhoneNumber == phoneNumber);
+        }
+
 
         public void Login(Customer customer)
         {
@@ -56,8 +61,6 @@ namespace SWEPP.Services
             if (LoggedInCustomer != null)
             {
                 LoggedInCustomer.OrderHistory.Add(receipt);
-                Console.WriteLine($"Order saved for: {LoggedInCustomer.Name}"); // Debugging
-                Console.WriteLine($"Order count: {LoggedInCustomer.OrderHistory.Count}"); // Debugging
                 SaveCustomersToFile();
             }
         }

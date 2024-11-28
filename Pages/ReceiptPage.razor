@@ -1,22 +1,37 @@
 ﻿@page "/receipt"
 @inject SWEPP.Services.OrderService OrderService
-@using SWEPP.Models
 
 <h3>Receipt</h3>
 
-@if (OrderService.CurrentReceipt != null)
+@if (Receipt != null)
 {
     <div>
-        <p><strong>Customer:</strong> @OrderService.CurrentReceipt.CustomerName</p>
-        <p><strong>Date:</strong> @OrderService.CurrentReceipt.Date</p>
+        <h4>Customer: @Receipt.CustomerName</h4>
+        <p>Date: @Receipt.Date</p>
+        <h5>Items:</h5>
         <ul>
-            @foreach (var item in OrderService.CurrentReceipt.Items)
+            @foreach (var item in Receipt.Items)
             {
                 <li>@item.Name - @item.Price.ToString("C")</li>
             }
         </ul>
-        <p><strong>Total:</strong> @OrderService.CurrentReceipt.TotalPrice.ToString("C")</p>
-        <p><strong>Payment Method:</strong> @OrderService.CurrentReceipt.PaymentMethod</p>
+        <p><strong>Total:</strong> @Receipt.TotalPrice.ToString("C")</p>
+        <p><strong>Payment Method:</strong> @Receipt.PaymentMethod</p>
+
+        @if (!SignatureSubmitted)
+        {
+            <h5>Customer Signature</h5>
+            <div>
+                <label for="signature">Sign Below:</label>
+                <input id="signature" @bind="CustomerSignature" placeholder="Customer Signature" style="width: 100%; padding: 5px;" />
+            </div>
+            <button @onclick="SubmitSignature">Submit</button>
+        }
+        else
+        {
+            <h5>Thank you for your signature!</h5>
+            <button @onclick="FinishCheckout">Return to Receipt</button>
+        }
     </div>
 }
 else
@@ -25,8 +40,26 @@ else
 }
 
 @code {
+    private Receipt? Receipt { get; set; }
+    private string CustomerSignature = string.Empty;
+    private bool SignatureSubmitted = false;
+
     protected override void OnInitialized()
     {
-        OrderService.ClearOrder();
+        Receipt = OrderService.GetCurrentReceipt();
+    }
+
+    private void SubmitSignature()
+    {
+        if (!string.IsNullOrWhiteSpace(CustomerSignature))
+        {
+            SignatureSubmitted = true;
+        }
+    }
+
+    private void FinishCheckout()
+    {
+        SignatureSubmitted = false;
+        StateHasChanged();
     }
 }

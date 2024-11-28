@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Pages\CustomerLookup.razor" />
     <Content Remove="Pages\OrderHistory.razor" />
   </ItemGroup>
 
@@ -15,15 +16,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\CustomerLookup.razor" />
     <_ContentIncludedByDefault Remove="Pages\OrderHistory.razor" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Pages\CustomerLookup.razor" />
     <None Include="Pages\OrderHistory.razor" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\CustomerLookup.razor" />
   </ItemGroup>
 
 </Project>

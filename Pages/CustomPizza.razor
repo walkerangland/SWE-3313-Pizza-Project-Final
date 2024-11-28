@@ -1,0 +1,84 @@
+﻿@page "/custom-pizza"
+@using SWEPP.Models
+@inject SWEPP.Services.OrderService OrderService
+@inject NavigationManager NavigationManager
+
+<h3>Create Your Custom Pizza</h3>
+
+<EditForm Model="customPizza" OnValidSubmit="AddCustomPizzaToOrder">
+    <div class="form-group">
+        <label for="crust">Select Crust:</label>
+        <select id="crust" @bind="customPizza.Crust" class="form-control">
+            <option value="Thin">Thin</option>
+            <option value="Regular">Regular</option>
+            <option value="Stuffed">Stuffed</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="sauce">Select Sauce Amount:</label>
+        <select id="sauce" @bind="customPizza.SauceAmount" class="form-control">
+            <option value="Light">Light</option>
+            <option value="Normal">Normal</option>
+            <option value="Extra">Extra</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="cheese">Select Cheese Amount:</label>
+        <select id="cheese" @bind="customPizza.CheeseAmount" class="form-control">
+            <option value="Light">Light</option>
+            <option value="Normal">Normal</option>
+            <option value="Extra">Extra</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="toppings">Select Toppings:</label>
+        @foreach (var topping in availableToppings)
+        {
+            <div>
+                <input type="checkbox" @onchange="e => UpdateToppings(e, topping)" />
+                <label>@topping</label>
+            </div>
+        }
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add to Cart</button>
+</EditForm>
+
+@code {
+    private Pizza customPizza = new Pizza();
+    private List<string> availableToppings = new List<string>
+    {
+        "Pepperoni", "Mushrooms", "Onions", "Sausage", "Bacon", "Extra Cheese", "Black Olives", "Green Peppers"
+    };
+
+    private void UpdateToppings(ChangeEventArgs e, string topping)
+    {
+        if ((bool)e.Value)
+        {
+            if (!customPizza.Toppings.Contains(topping))
+                customPizza.Toppings.Add(topping);
+        }
+        else
+        {
+            customPizza.Toppings.Remove(topping);
+        }
+    }
+
+    private void AddCustomPizzaToOrder()
+    {
+        customPizza.Name = "Custom Pizza";
+        customPizza.Price = CalculateCustomPizzaPrice();
+        OrderService.AddToOrder(customPizza);
+        NavigationManager.NavigateTo("/cart");
+    }
+
+    private decimal CalculateCustomPizzaPrice()
+    {
+        decimal basePrice = 8.99M;
+        basePrice += customPizza.Toppings.Count * 1.00M;
+        return basePrice;
+    }
+}

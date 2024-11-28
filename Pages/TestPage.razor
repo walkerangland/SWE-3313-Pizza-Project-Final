@@ -1,0 +1,40 @@
+﻿@page "/customer-lookup"
+@namespace SWEPP.Pages
+@inject SWEPP.Services.CustomerService CustomerService
+
+<h3>Customer Lookup</h3>
+
+<div>
+    <label for="phoneNumber">Enter Phone Number:</label>
+    <input @bind="PhoneNumber" id="phoneNumber" placeholder="Phone Number" />
+    <button @onclick="SearchCustomer">Search</button>
+</div>
+
+@if (Customer != null)
+{
+    <div>
+        <h4>Customer Details</h4>
+        <p><strong>Name:</strong> @Customer.Name</p>
+        <p><strong>Phone Number:</strong> @Customer.PhoneNumber</p>
+        <p><strong>Address:</strong> @Customer.Address</p>
+        <p><strong>Subdivision:</strong> @Customer.Subdivision</p>
+        <p><strong>Major Intersection:</strong> @Customer.MajorIntersection</p>
+        <p><strong>Payment Type:</strong> @Customer.PaymentType</p>
+    </div>
+}
+else if (ShowNoCustomerMessage)
+{
+    <p>No customer found with this phone number.</p>
+}
+
+@code {
+    private string PhoneNumber = string.Empty;
+    private SWEPP.Models.Customer? Customer;
+    private bool ShowNoCustomerMessage = false;
+
+    private void SearchCustomer()
+    {
+        Customer = CustomerService.GetCustomerByPhoneNumber(PhoneNumber);
+        ShowNoCustomerMessage = Customer == null;
+    }
+}

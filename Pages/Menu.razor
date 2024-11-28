@@ -1,5 +1,6 @@
 ﻿@page "/menu"
 @inject SWEPP.Services.OrderService OrderService
+@inject NavigationManager NavigationManager
 @using SWEPP.Models
 
 <h3>Our Menu</h3>
@@ -28,6 +29,12 @@
         <hr />
     </div>
 }
+
+<div class="menu-item">
+    <h4>Custom Pizza</h4>
+    <p>Create a pizza with your choice of crust, sauce, cheese, and toppings!</p>
+    <button class="btn btn-success" @onclick="NavigateToCustomPizza">Customize Your Pizza</button>
+</div>
 
 @code {
     private List<MenuItem> menuItems = new List<MenuItem>
@@ -61,11 +68,15 @@
         feedbackMessage = $"{item.Name} has been added to your cart!";
         StateHasChanged();
 
-        // Clear the feedback message after 3 seconds
         Task.Delay(3000).ContinueWith(_ =>
         {
             feedbackMessage = null;
             InvokeAsync(StateHasChanged);
         });
+    }
+
+    private void NavigateToCustomPizza()
+    {
+        NavigationManager.NavigateTo("/custom-pizza");
     }
 }
