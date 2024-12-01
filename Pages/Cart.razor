@@ -29,6 +29,22 @@
     </ul>
     <h4>Total: @OrderService.CurrentOrder.Sum(item => item.Price).ToString("C")</h4>
 
+    <div>
+        <label for="order-type">Select Order Type:</label>
+        <select id="order-type" @bind="selectedOrderType">
+            <option value="Pickup">Pickup</option>
+            <option value="Delivery">Delivery</option>
+        </select>
+    </div>
+
+    @if (selectedOrderType == "Delivery")
+    {
+        <div>
+            <label for="delivery-address">Enter Delivery Address:</label>
+            <input id="delivery-address" @bind="deliveryAddress" placeholder="Enter delivery address here" />
+        </div>
+    }
+
     @if (CustomerService.LoggedInCustomer == null)
     {
         <div>
@@ -50,6 +66,8 @@ else
 }
 
 @code {
+    private string selectedOrderType = "Pickup";
+    private string deliveryAddress = string.Empty;
     private string selectedPaymentMethod = "Visa";
 
     private void RemoveItem(MenuItem item)
@@ -69,8 +87,11 @@ else
         string customerName = CustomerService.LoggedInCustomer?.Name ?? "Guest";
         string paymentMethod = CustomerService.LoggedInCustomer == null ? selectedPaymentMethod : "Visa";
 
-        // Generate and set the receipt
         var receipt = OrderService.GenerateReceipt(customerName, paymentMethod);
+        receipt.OrderType = selectedOrderType;
+        receipt.DeliveryAddress = selectedOrderType == "Delivery" ? deliveryAddress : "N/A";
+
+        OrderService.SetCurrentReceipt(receipt);
         NavigationManager.NavigateTo("/receipt");
     }
 }

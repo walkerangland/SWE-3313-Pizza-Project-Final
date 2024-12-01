@@ -8,6 +8,9 @@
         public string PaymentMethod { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
 
+        public string OrderType { get; set; }
+        public string DeliveryAddress { get; set; }
+
         public override string ToString()
         {
             string itemList = string.Join("\n", Items.Select(item => $"{item.Name} - {item.Price:C}"));
@@ -15,7 +18,9 @@
                    $"Date: {Date}\n" +
                    $"Items:\n{itemList}\n" +
                    $"Total: {TotalPrice:C}\n" +
-                   $"Payment Method: {PaymentMethod}\n";
+                   $"Payment Method: {PaymentMethod}\n" +
+                   $"Order Type: {OrderType}\n" +
+                   $"{(OrderType == "Delivery" ? $"Delivery Address: {DeliveryAddress}\n" : "")}";
         }
     }
 }

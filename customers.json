@@ -29,7 +29,9 @@
         ],
         "TotalPrice": 12.99,
         "PaymentMethod": "Visa",
-        "Date": "2024-11-13T20:13:36.2538935-05:00"
+        "Date": "2024-11-13T20:13:36.2538935-05:00",
+        "OrderType": null,
+        "DeliveryAddress": null
       },
       {
         "CustomerName": "Walker Andrew Angland",
@@ -42,7 +44,9 @@
         ],
         "TotalPrice": 12.99,
         "PaymentMethod": "Visa",
-        "Date": "2024-11-13T20:14:09.6844548-05:00"
+        "Date": "2024-11-13T20:14:09.6844548-05:00",
+        "OrderType": null,
+        "DeliveryAddress": null
       },
       {
         "CustomerName": "Walker Andrew Angland",
@@ -55,7 +59,9 @@
         ],
         "TotalPrice": 12.99,
         "PaymentMethod": "Visa",
-        "Date": "2024-11-13T20:17:11.6204508-05:00"
+        "Date": "2024-11-13T20:17:11.6204508-05:00",
+        "OrderType": null,
+        "DeliveryAddress": null
       },
       {
         "CustomerName": "Walker Andrew Angland",
@@ -68,7 +74,9 @@
         ],
         "TotalPrice": 12.99,
         "PaymentMethod": "Visa",
-        "Date": "2024-11-13T20:20:21.3295695-05:00"
+        "Date": "2024-11-13T20:20:21.3295695-05:00",
+        "OrderType": null,
+        "DeliveryAddress": null
       },
       {
         "CustomerName": "Walker Andrew Angland",
@@ -81,7 +89,9 @@
         ],
         "TotalPrice": 12.99,
         "PaymentMethod": "Visa",
-        "Date": "2024-11-13T20:26:11.2339731-05:00"
+        "Date": "2024-11-13T20:26:11.2339731-05:00",
+        "OrderType": null,
+        "DeliveryAddress": null
       },
       {
         "CustomerName": "Walker Andrew Angland",
@@ -94,7 +104,9 @@
         ],
         "TotalPrice": 12.99,
         "PaymentMethod": "Visa",
-        "Date": "2024-11-27T18:04:43.4674628-05:00"
+        "Date": "2024-11-27T18:04:43.4674628-05:00",
+        "OrderType": null,
+        "DeliveryAddress": null
       },
       {
         "CustomerName": "Walker Andrew Angland",
@@ -107,7 +119,9 @@
         ],
         "TotalPrice": 12.99,
         "PaymentMethod": "Visa",
-        "Date": "2024-11-27T18:04:49.8030633-05:00"
+        "Date": "2024-11-27T18:04:49.8030633-05:00",
+        "OrderType": null,
+        "DeliveryAddress": null
       },
       {
         "CustomerName": "Walker Andrew Angland",
@@ -120,7 +134,9 @@
         ],
         "TotalPrice": 12.99,
         "PaymentMethod": "Visa",
-        "Date": "2024-11-27T18:08:36.1198773-05:00"
+        "Date": "2024-11-27T18:08:36.1198773-05:00",
+        "OrderType": null,
+        "DeliveryAddress": null
       },
       {
         "CustomerName": "Walker Andrew Angland",
@@ -133,7 +149,9 @@
         ],
         "TotalPrice": 12.99,
         "PaymentMethod": "Visa",
-        "Date": "2024-11-27T18:13:10.8880363-05:00"
+        "Date": "2024-11-27T18:13:10.8880363-05:00",
+        "OrderType": null,
+        "DeliveryAddress": null
       },
       {
         "CustomerName": "Walker Andrew Angland",
@@ -146,7 +164,9 @@
         ],
         "TotalPrice": 12.99,
         "PaymentMethod": "Visa",
-        "Date": "2024-11-27T18:18:00.3527532-05:00"
+        "Date": "2024-11-27T18:18:00.3527532-05:00",
+        "OrderType": null,
+        "DeliveryAddress": null
       },
       {
         "CustomerName": "Walker Andrew Angland",
@@ -159,7 +179,9 @@
         ],
         "TotalPrice": 12.99,
         "PaymentMethod": "Visa",
-        "Date": "2024-11-27T18:18:24.2164764-05:00"
+        "Date": "2024-11-27T18:18:24.2164764-05:00",
+        "OrderType": null,
+        "DeliveryAddress": null
       },
       {
         "CustomerName": "Walker Andrew Angland",
@@ -172,7 +194,9 @@
         ],
         "TotalPrice": 12.99,
         "PaymentMethod": "Visa",
-        "Date": "2024-11-27T18:24:12.739987-05:00"
+        "Date": "2024-11-27T18:24:12.739987-05:00",
+        "OrderType": null,
+        "DeliveryAddress": null
       },
       {
         "CustomerName": "Walker Andrew Angland",
@@ -185,7 +209,9 @@
         ],
         "TotalPrice": 12.99,
         "PaymentMethod": "Visa",
-        "Date": "2024-11-27T18:27:58.7957546-05:00"
+        "Date": "2024-11-27T18:27:58.7957546-05:00",
+        "OrderType": null,
+        "DeliveryAddress": null
       },
       {
         "CustomerName": "Walker Andrew Angland",
@@ -198,7 +224,9 @@
         ],
         "TotalPrice": 12.99,
         "PaymentMethod": "Visa",
-        "Date": "2024-11-27T18:34:03.9729439-05:00"
+        "Date": "2024-11-27T18:34:03.9729439-05:00",
+        "OrderType": null,
+        "DeliveryAddress": null
       },
       {
         "CustomerName": "Walker Andrew Angland",
@@ -211,7 +239,9 @@
         ],
         "TotalPrice": 12.99,
         "PaymentMethod": "Visa",
-        "Date": "2024-11-27T18:38:34.9938126-05:00"
+        "Date": "2024-11-27T18:38:34.9938126-05:00",
+        "OrderType": null,
+        "DeliveryAddress": null
       },
       {
         "CustomerName": "Walker Andrew Angland",
@@ -224,7 +254,9 @@
         ],
         "TotalPrice": 12.99,
         "PaymentMethod": "Visa",
-        "Date": "2024-11-27T18:43:58.114104-05:00"
+        "Date": "2024-11-27T18:43:58.114104-05:00",
+        "OrderType": null,
+        "DeliveryAddress": null
       },
       {
         "CustomerName": "Walker Andrew Angland",
@@ -237,7 +269,9 @@
         ],
         "TotalPrice": 12.99,
         "PaymentMethod": "Visa",
-        "Date": "2024-11-27T19:32:57.0304003-05:00"
+        "Date": "2024-11-27T19:32:57.0304003-05:00",
+        "OrderType": null,
+        "DeliveryAddress": null
       },
       {
         "CustomerName": "Walker Andrew Angland",
@@ -250,7 +284,9 @@
         ],
         "TotalPrice": 12.99,
         "PaymentMethod": "Visa",
-        "Date": "2024-11-27T19:33:09.1131207-05:00"
+        "Date": "2024-11-27T19:33:09.1131207-05:00",
+        "OrderType": null,
+        "DeliveryAddress": null
       },
       {
         "CustomerName": "Walker Andrew Angland",
@@ -263,7 +299,24 @@
         ],
         "TotalPrice": 12.99,
         "PaymentMethod": "Visa",
-        "Date": "2024-11-27T19:39:32.8983473-05:00"
+        "Date": "2024-11-27T19:39:32.8983473-05:00",
+        "OrderType": null,
+        "DeliveryAddress": null
+      },
+      {
+        "CustomerName": "Walker Andrew Angland",
+        "Items": [
+          {
+            "Name": "Pepperoni Pizza",
+            "Price": 0,
+            "ImagePath": "peppizza.jpg"
+          }
+        ],
+        "TotalPrice": 0,
+        "PaymentMethod": "Visa",
+        "Date": "2024-12-01T00:43:59.7216849-05:00",
+        "OrderType": null,
+        "DeliveryAddress": null
       }
     ]
   },

@@ -104,5 +104,10 @@ namespace SWEPP.Services
             slip += $"\nTotal Items: {CurrentOrder.Count}";
             return slip;
         }
+        public void SetCurrentReceipt(Receipt receipt)
+        {
+            CurrentReceipt = receipt;
+        }
+
     }
 }

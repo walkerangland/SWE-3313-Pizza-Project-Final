@@ -7,8 +7,18 @@
 
 <EditForm Model="customPizza" OnValidSubmit="AddCustomPizzaToOrder">
     <div class="form-group">
+        <label for="size">Select Size:</label>
+        <select id="size" @onchange="OnSizeChanged" class="form-control">
+            <option value="Small">Small</option>
+            <option value="Medium">Medium</option>
+            <option value="Large">Large</option>
+            <option value="Extra Large">Extra Large</option>
+        </select>
+    </div>
+
+    <div class="form-group">
         <label for="crust">Select Crust:</label>
-        <select id="crust" @bind="customPizza.Crust" class="form-control">
+        <select id="crust" @onchange="OnCrustChanged" class="form-control">
             <option value="Thin">Thin</option>
             <option value="Regular">Regular</option>
             <option value="Stuffed">Stuffed</option>
@@ -17,7 +27,7 @@
 
     <div class="form-group">
         <label for="sauce">Select Sauce Amount:</label>
-        <select id="sauce" @bind="customPizza.SauceAmount" class="form-control">
+        <select id="sauce" @onchange="OnSauceChanged" class="form-control">
             <option value="Light">Light</option>
             <option value="Normal">Normal</option>
             <option value="Extra">Extra</option>
@@ -26,7 +36,7 @@
 
     <div class="form-group">
         <label for="cheese">Select Cheese Amount:</label>
-        <select id="cheese" @bind="customPizza.CheeseAmount" class="form-control">
+        <select id="cheese" @onchange="OnCheeseChanged" class="form-control">
             <option value="Light">Light</option>
             <option value="Normal">Normal</option>
             <option value="Extra">Extra</option>
@@ -34,15 +44,21 @@
     </div>
 
     <div class="form-group">
-        <label for="toppings">Select Toppings:</label>
+        <label for="toppings">Select Toppings (25 cents each):</label>
         @foreach (var topping in availableToppings)
         {
             <div>
-                <input type="checkbox" @onchange="e => UpdateToppings(e, topping)" />
+                <input type="checkbox" @onchange="e => UpdateToppings(e, topping)" disabled="@toppingsLimitReached" />
                 <label>@topping</label>
             </div>
         }
+        @if (toppingsLimitReached)
+        {
+            <div style="color:red;">You have reached the maximum number of toppings (4).</div>
+        }
     </div>
+
+    <h4>Total Price: @customPizza.Price.ToString("C")</h4>
 
     <button type="submit" class="btn btn-primary">Add to Cart</button>
 </EditForm>
@@ -54,31 +70,58 @@
         "Pepperoni", "Mushrooms", "Onions", "Sausage", "Bacon", "Extra Cheese", "Black Olives", "Green Peppers"
     };
 
+    private bool toppingsLimitReached => customPizza.Toppings.Count >= 4;
+
     private void UpdateToppings(ChangeEventArgs e, string topping)
     {
         if ((bool)e.Value)
         {
-            if (!customPizza.Toppings.Contains(topping))
+            if (!customPizza.Toppings.Contains(topping) && customPizza.Toppings.Count < 4)
+            {
                 customPizza.Toppings.Add(topping);
+            }
         }
         else
         {
             customPizza.Toppings.Remove(topping);
         }
+
+        customPizza.RecalculatePrice();
+        StateHasChanged();
+    }
+
+    private void OnSizeChanged(ChangeEventArgs e)
+    {
+        customPizza.Size = e.Value.ToString();
+        customPizza.RecalculatePrice();
+        StateHasChanged();
+    }
+
+    private void OnCrustChanged(ChangeEventArgs e)
+    {
+        customPizza.Crust = e.Value.ToString();
+        customPizza.RecalculatePrice();
+        StateHasChanged();
+    }
+
+    private void OnSauceChanged(ChangeEventArgs e)
+    {
+        customPizza.SauceAmount = e.Value.ToString();
+        customPizza.RecalculatePrice();
+        StateHasChanged();
+    }
+
+    private void OnCheeseChanged(ChangeEventArgs e)
+    {
+        customPizza.CheeseAmount = e.Value.ToString();
+        customPizza.RecalculatePrice();
+        StateHasChanged();
     }
 
     private void AddCustomPizzaToOrder()
     {
         customPizza.Name = "Custom Pizza";
-        customPizza.Price = CalculateCustomPizzaPrice();
         OrderService.AddToOrder(customPizza);
         NavigationManager.NavigateTo("/cart");
-    }
-
-    private decimal CalculateCustomPizzaPrice()
-    {
-        decimal basePrice = 8.99M;
-        basePrice += customPizza.Toppings.Count * 1.00M;
-        return basePrice;
     }
 }

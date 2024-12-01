@@ -17,6 +17,11 @@
         </ul>
         <p><strong>Total:</strong> @Receipt.TotalPrice.ToString("C")</p>
         <p><strong>Payment Method:</strong> @Receipt.PaymentMethod</p>
+        <p><strong>Order Type:</strong> @Receipt.OrderType</p>
+        @if (Receipt.OrderType == "Delivery")
+        {
+            <p><strong>Delivery Address:</strong> @Receipt.DeliveryAddress</p>
+        }
 
         @if (!SignatureSubmitted)
         {
@@ -30,7 +35,6 @@
         else
         {
             <h5>Thank you for your signature!</h5>
-            <button @onclick="FinishCheckout">Return to Receipt</button>
         }
     </div>
 }
@@ -54,12 +58,7 @@ else
         if (!string.IsNullOrWhiteSpace(CustomerSignature))
         {
             SignatureSubmitted = true;
+            StateHasChanged();
         }
-    }
-
-    private void FinishCheckout()
-    {
-        SignatureSubmitted = false;
-        StateHasChanged();
     }
 }

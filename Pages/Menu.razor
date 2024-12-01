@@ -17,11 +17,11 @@
             <img src="images/@item.ImagePath" alt="@item.Name" style="width: 100px; height: 100px; margin-right: 10px;" />
             <div>
                 <h4>@item.Name - @item.Price.ToString("C")</h4>
-                @if (item is Pizza pizza)
+                @if (item is StaticPizza staticPizza)
                 {
-                    <p>Size: @pizza.Size</p>
-                    <p>Crust: @pizza.Crust</p>
-                    <p>Toppings: @string.Join(", ", pizza.Toppings)</p>
+                    <p>Size: @staticPizza.Size</p>
+                    <p>Crust: @staticPizza.Crust</p>
+                    <p>Toppings: @string.Join(", ", staticPizza.Toppings)</p>
                 }
                 <button class="btn btn-primary" @onclick="() => AddToOrder(item)">Add to Cart</button>
             </div>
@@ -39,25 +39,31 @@
 @code {
     private List<MenuItem> menuItems = new List<MenuItem>
     {
-        // Pizzas
-        new Pizza { Name = "Pepperoni Pizza", Size = "Large", Crust = "Thin", Price = 12.99M, Toppings = new List<string> { "Pepperoni", "Cheese" }, ImagePath = "peppizza.jpg" },
-        new Pizza { Name = "Veggie Pizza", Size = "Medium", Crust = "Thick", Price = 10.99M, Toppings = new List<string> { "Bell Peppers", "Onions", "Mushrooms" }, ImagePath = "vegpizza.jpg" },
-        new Pizza { Name = "BBQ Chicken Pizza", Size = "Large", Crust = "Hand-Tossed", Price = 14.99M, Toppings = new List<string> { "BBQ Chicken", "Red Onions", "Cilantro" }, ImagePath = "bbqpizza.jpg" },
-        new Pizza { Name = "Margherita Pizza", Size = "Medium", Crust = "Thin", Price = 11.99M, Toppings = new List<string> { "Fresh Mozzarella", "Basil", "Tomato Sauce" }, ImagePath = "margpizza.jpg" },
-        new Pizza { Name = "Meat Lover’s Pizza", Size = "Extra Large", Crust = "Stuffed", Price = 15.99M, Toppings = new List<string> { "Sausage", "Pepperoni", "Bacon", "Ham" }, ImagePath = "meatpizza.jpg" },
+        new StaticPizza("Pepperoni Pizza", "Large", "Thin", 12.99M, new List<string> { "Pepperoni", "Cheese" }, "peppizza.jpg"),
+        new StaticPizza("Veggie Pizza", "Medium", "Thick", 10.99M, new List<string> { "Bell Peppers", "Onions", "Mushrooms" }, "vegpizza.jpg"),
+        new StaticPizza("BBQ Chicken Pizza", "Large", "Hand-Tossed", 14.99M, new List<string> { "BBQ Chicken", "Red Onions", "Cilantro" }, "bbqpizza.jpg"),
+        new StaticPizza("Margherita Pizza", "Medium", "Thin", 11.99M, new List<string> { "Fresh Mozzarella", "Basil", "Tomato Sauce" }, "margpizza.jpg"),
+        new StaticPizza("Meat Lover’s Pizza", "Extra Large", "Stuffed", 15.99M, new List<string> { "Sausage", "Pepperoni", "Bacon", "Ham" }, "meatpizza.jpg"),
 
-        // Sides
         new MenuItem { Name = "Garlic Bread", Price = 4.99M, ImagePath = "gbmenu.jpg" },
         new MenuItem { Name = "Cheesy Breadsticks", Price = 5.99M, ImagePath = "cheesybreadsticks.jpg" },
         new MenuItem { Name = "Caesar Salad", Price = 6.99M, ImagePath = "salad.jpg" },
 
-        // Drinks
-        new MenuItem { Name = "Coke (Can)", Price = 1.49M, ImagePath = "coke.jpg" },
-        new MenuItem { Name = "Sprite (Can)", Price = 1.49M, ImagePath = "sprite.jpg" },
-        new MenuItem { Name = "Diet Coke (Can)", Price = 1.49M, ImagePath = "dietcoke.jpg" },
+        new MenuItem { Name = "Coke (Can)", Price = 1.49M, ImagePath = "coke can.jpg" },
+        new MenuItem { Name = "Coke (Bottle)", Price = 2.49M, ImagePath = "coke2l.jpg" },
         new MenuItem { Name = "Coke (2L)", Price = 2.99M, ImagePath = "coke2l.jpg" },
+        new MenuItem { Name = "Sprite (Can)", Price = 1.49M, ImagePath = "sprite can.png" },
+        new MenuItem { Name = "Sprite (Bottle)", Price = 2.49M, ImagePath = "sprite bottle.png" },
         new MenuItem { Name = "Sprite (2L)", Price = 2.99M, ImagePath = "sprite2l.jpg" },
-        new MenuItem { Name = "Diet Coke (2L)", Price = 2.99M, ImagePath = "diet coke 2l.png" }
+        new MenuItem { Name = "Diet Coke (Can)", Price = 1.49M, ImagePath = "diet coke can.png" },
+        new MenuItem { Name = "Diet Coke (Bottle)", Price = 2.49M, ImagePath = "diet coke bottle.png" },
+        new MenuItem { Name = "Diet Coke (2L)", Price = 2.99M, ImagePath = "diet coke2l.png" },
+        new MenuItem { Name = "Fanta (Can)", Price = 1.49M, ImagePath = "fanta can.jpg" },
+        new MenuItem { Name = "Fanta (Bottle)", Price = 2.49M, ImagePath = "fanta bottle.jpg" },
+        new MenuItem { Name = "Fanta (2L)", Price = 2.99M, ImagePath = "fanta 2l.png" },
+        new MenuItem { Name = "Dr. Pepper (Can)", Price = 1.49M, ImagePath = "dp can.jpg" },
+        new MenuItem { Name = "Dr. Pepper (Bottle)", Price = 2.49M, ImagePath = "dp bottle.png" },
+        new MenuItem { Name = "Dr. Pepper (2L)", Price = 2.99M, ImagePath = "dr-pepper-2-liter-coupon.jpg" },
     };
 
     private string? feedbackMessage;
