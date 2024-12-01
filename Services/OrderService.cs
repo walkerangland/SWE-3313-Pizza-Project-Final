@@ -17,6 +17,34 @@ namespace SWEPP.Services
         public Receipt? CurrentReceipt { get; private set; }
         public List<Receipt> DailyReceipts { get; private set; } = new List<Receipt>();
 
+        public string GenerateDailySalesSummary()
+        {
+            if (!DailyReceipts.Any())
+            {
+                return "No sales recorded for today.";
+            }
+
+            decimal totalSales = DailyReceipts.Sum(r => r.TotalPrice);
+            int totalOrders = DailyReceipts.Count;
+            var itemCounts = DailyReceipts
+                .SelectMany(r => r.Items)
+                .GroupBy(i => i.Name)
+                .Select(g => new { ItemName = g.Key, Count = g.Count() })
+                .OrderByDescending(x => x.Count);
+
+            var summary = $"Daily Sales Summary:\n\n";
+            summary += $"Total Sales: {totalSales:C}\n";
+            summary += $"Total Orders: {totalOrders}\n";
+            summary += "\nMost Popular Items:\n";
+
+            foreach (var item in itemCounts)
+            {
+                summary += $"- {item.ItemName}: {item.Count} sold\n";
+            }
+
+            return summary;
+        }
+
         public void AddToOrder(MenuItem item)
         {
             CurrentOrder.Add(item);
@@ -60,54 +88,31 @@ namespace SWEPP.Services
             return CurrentReceipt;
         }
 
-        public string GenerateDailySalesSummary()
-        {
-            if (!DailyReceipts.Any())
-            {
-                return "No sales recorded for today.";
-            }
-
-            decimal totalSales = DailyReceipts.Sum(r => r.TotalPrice);
-            int totalOrders = DailyReceipts.Count;
-            var itemCounts = DailyReceipts
-                .SelectMany(r => r.Items)
-                .GroupBy(i => i.Name)
-                .Select(g => new { ItemName = g.Key, Count = g.Count() })
-                .OrderByDescending(x => x.Count);
-
-            var summary = $"Daily Sales Summary:\n\n";
-            summary += $"Total Sales: {totalSales:C}\n";
-            summary += $"Total Orders: {totalOrders}\n";
-            summary += "\nMost Popular Items:\n";
-
-            foreach (var item in itemCounts)
-            {
-                summary += $"- {item.ItemName}: {item.Count} sold\n";
-            }
-
-            return summary;
-        }
-
-        public string GenerateKitchenSlip()
-        {
-            if (!CurrentOrder.Any())
-            {
-                return "No items in the order.";
-            }
-
-            var slip = "Kitchen Order Slip:\n\n";
-            foreach (var item in CurrentOrder)
-            {
-                slip += $"- {item.Name}\n";
-            }
-
-            slip += $"\nTotal Items: {CurrentOrder.Count}";
-            return slip;
-        }
         public void SetCurrentReceipt(Receipt receipt)
         {
             CurrentReceipt = receipt;
         }
 
+        public Order CreateOrder(Receipt receipt)
+        {
+            var order = new Order
+            {
+                Receipt = receipt
+            };
+
+            foreach (var item in CurrentOrder)
+            {
+                if (item is Pizza pizza)
+                {
+                    order.Pizzas.Add(pizza);
+                }
+                else
+                {
+                    order.MenuItems.Add(item);
+                }
+            }
+
+            return order;
+        }
     }
 }

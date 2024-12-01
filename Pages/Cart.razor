@@ -1,6 +1,7 @@
 ﻿@page "/cart"
 @inject SWEPP.Services.OrderService OrderService
 @inject SWEPP.Services.CustomerService CustomerService
+@inject SWEPP.Services.KitchenSlipService KitchenSlipService
 @inject NavigationManager NavigationManager
 @using SWEPP.Models
 
@@ -92,6 +93,9 @@ else
         receipt.DeliveryAddress = selectedOrderType == "Delivery" ? deliveryAddress : "N/A";
 
         OrderService.SetCurrentReceipt(receipt);
+        KitchenSlipService.AddOrder(OrderService.CreateOrder(receipt));
+        ClearCart();
+
         NavigationManager.NavigateTo("/receipt");
     }
 }
