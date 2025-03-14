@@ -47,7 +47,7 @@ How to Run the Project
 Clone the repository:
 bash
 Copy code
-git clone https://github.com/walkerangland/SWEPP.git
+git clone https://github.com/walkerangland/SWE-3313-Pizza-Project-Final
 Open the project in Visual Studio.
 Build and run the application in Debug mode.
 Navigate to the locally hosted web application in your browser.
